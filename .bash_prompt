@@ -1,0 +1,79 @@
+
+# fil: .bash_prompt
+# ver: 1.0
+# ack: inspired by Paul Irish's gf3’s Sexy Bash Prompt (shamelessly copied from
+# https://github.com/gf3/dotfiles) and “Extravagant Zsh Prompt”
+# this ver has been hacked around to shamelessly give it that Paul Irish mood
+# in subsequent ver, i will be making some more of my own hacks ...
+
+# set title bar to current directory only ...
+# PROMPT_COMMAND='echo -ne "\033]0;${PWD##/$HOME/~}\007"'
+# PROMPT_COMMAND='echo -ne "\033]0;${PWD##/*/~}\007"'
+# PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
+# PROMPT_COMMAND='history -a && echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
+
+PROMPT_COMMAND='echo -ne "\033]0;${PWD##/*/~}\007"'
+
+# trims long paths down to 80 chars
+_get_path(){
+  local x=$(pwd | sed -e "s:$HOME:~:")
+  local len=${#x}
+  local max=80
+  if [ $len -gt $max ]
+  then
+      echo ...${x:((len-max+3))}
+  else
+      echo ${x}
+  fi
+}
+
+# enable git unstaged indicators - set to a non-empty value
+GIT_PS1_SHOWDIRTYSTATE="."
+ 
+# enable showing of untracked files - set to a non-empty value
+GIT_PS1_SHOWUNTRACKEDFILES="."
+ 
+# enable stash checking - set to a non-empty value
+GIT_PS1_SHOWSTASHSTATE="."
+ 
+# enable showing of HEAD vs its upstream
+GIT_PS1_SHOWUPSTREAM="auto"
+
+# define some colours
+BLACK=$(tput setaf 0)
+GREY=$'\033[1;30m'
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+LIGHT_BLUE=$'\033[1;34m'
+LIME_YELLOW=$(tput setaf 190)
+POWDER_BLUE=$(tput setaf 153)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+BRIGHT=$(tput bold)
+NORMAL=$(tput sgr0)
+BLINK=$(tput blink)
+REVERSE=$(tput smso)
+UNDERLINE=$(tput smul)
+NONE=$'\033[m'
+
+# add color support
+export CLICOLOR=1
+# other colors are ... export LSCOLORS=ExFxCxDxBxegedabagacad
+# other colors are ... export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export LSCOLORS=gxfxcxdxxxegedabagacgx
+ 
+# return the prompt prefix for the second line
+function set_prefix {
+    BRANCH=`__git_ps1`
+    if [[ -z $BRANCH ]]; then
+        echo "${NORMAL}o"
+    else
+        echo "${UNDERLINE}+"
+    fi
+}
+ 
+# PS1='${MAGENTA}\u${WHITE} in ${GREEN}\w${WHITE}${MAGENTA}`__git_ps1 " on %s"`${WHITE}\r\n`set_prefix`${NORMAL}\e[01;34m\033[s\033[60C (`date "+%a,%b %d"`)\033[u${WHITE}${NORMAL} '
+PS1='${MAGENTA}\u${WHITE} in ${GREEN}\w${WHITE}${MAGENTA}`__git_ps1 " on %s"`${WHITE}\r\n`set_prefix`${NORMAL}${LIGHT_BLUE}\033[s\033[60C (`date "+%a,%b %d"`)\033[u${WHITE}${NORMAL} '
