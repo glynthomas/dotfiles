@@ -11,6 +11,11 @@ function cls() {
 clear
 }
 
+# Yeap i know ... old school CMD dir alias
+function dir() {
+ls	
+}
+
 # Navigation that makes sense (for me)
 function cd...() {
 cd ..
