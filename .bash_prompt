@@ -1,18 +1,18 @@
 
 # fil: .bash_prompt
-# ver: 1.0
-# ack: inspired by Paul Irish's gf3’s Sexy Bash Prompt (shamelessly copied from
-# https://github.com/gf3/dotfiles) and “Extravagant Zsh Prompt”
-# this ver has been hacked around to shamelessly give it that Paul Irish mood
-# in subsequent ver, i will be making some more of my own hacks ...
+# ver: 1.1
+# cha: added date to title bar, auto verbose for GIT
+# ack: inspired by gf3’s sexy bash prompt and “Extravagant Zsh Prompt”
+# shamelessly ;-) copied from https://github.com/glynology/dotfiles
 
-# set title bar to current directory only ...
+
+# set current date and dir for title bar ...
 # PROMPT_COMMAND='echo -ne "\033]0;${PWD##/$HOME/~}\007"'
 # PROMPT_COMMAND='echo -ne "\033]0;${PWD##/*/~}\007"'
 # PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
 # PROMPT_COMMAND='history -a && echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 
-PROMPT_COMMAND='echo -ne "\033]0;${PWD##/*/~}\007"'
+PROMPT_COMMAND='echo -ne "\033]0;[`date "+%a,%b,%d"`] ${PWD##/*/~}\007"'
 
 # trims long paths down to 80 chars
 _get_path(){
@@ -37,7 +37,7 @@ GIT_PS1_SHOWUNTRACKEDFILES="."
 GIT_PS1_SHOWSTASHSTATE="."
  
 # enable showing of HEAD vs its upstream
-GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_SHOWUPSTREAM="auto verbose"
 
 # define some colours
 BLACK=$(tput setaf 0)
@@ -75,5 +75,5 @@ function set_prefix {
     fi
 }
  
-# PS1='${MAGENTA}\u${WHITE} in ${GREEN}\w${WHITE}${MAGENTA}`__git_ps1 " on %s"`${WHITE}\r\n`set_prefix`${NORMAL}\e[01;34m\033[s\033[60C (`date "+%a,%b %d"`)\033[u${WHITE}${NORMAL} '
-PS1='${MAGENTA}\u${WHITE} in ${GREEN}\w${WHITE}${MAGENTA}`__git_ps1 " on %s"`${WHITE}\r\n`set_prefix`${NORMAL}${LIGHT_BLUE}\033[s\033[60C (`date "+%a,%b %d"`)\033[u${WHITE}${NORMAL} '
+# PS1='${MAGENTA}\u${WHITE} in ${GREEN}\w${WHITE}${MAGENTA}`__git_ps1 " on %s"`${WHITE}\r\n`set_prefix`${NORMAL}${LIGHT_BLUE}\033[s\033[60C (`date "+%a,%b %d"`)\033[u${WHITE}${NORMAL} '
+PS1='${LIGHT_BLUE}\u${NORMAL} in ${GREEN}\w${WHITE}`__git_ps1 " '${NORMAL}on${MAGENTA}' %s "`${NORMAL}\r\n`set_prefix`${NORMAL}\033[s\033[u${WHITE}${NORMAL} '

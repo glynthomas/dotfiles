@@ -1,16 +1,12 @@
 # fil: .bash_profile
-# ver: 1.0
-# ack: inspired by Paul Irish's gf3’s Sexy Bash Prompt (shamelessly copied from
-# https://github.com/gf3/dotfiles) and “Extravagant Zsh Prompt”
-# this ver has been hacked around to shamelessly give it that Paul Irish mood
-# in subsequent ver, i will be making some more of my own hacks ...
+# ver: 1.1
+# cha: removed extraneous items.
+# ack: inspired by gf3’s sexy bash prompt and “Extravagant Zsh Prompt”
+# shamelessly ;-) copied from https://github.com/glynology/dotfiles
 
 
 PATH=$PATH:~/usr/local/bin:~/Data/Scripts:~/Data/Utils/rar:~/_Applications:~/_Applications/lynx:~/opt/local/bin:~/opt/local/sbin
 
-# set title bar to current directory only ...
-# PROMPT_COMMAND='echo -ne "\033]0;${PWD##/$HOME/~}\007"'
-# PROMPT_COMMAND='echo -ne "\033]0;${PWD##/*/~}\007"'
 
 # alias to quickly show if any Handbrake processes are running
 alias hb='sudo ps -aef | grep HandBrakeCLI'
