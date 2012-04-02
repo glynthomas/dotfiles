@@ -1,4 +1,4 @@
-# glynology (glyn thomas) dotfiles
+# glyn thomas dotfiles
 
 ## dotfiles
 
